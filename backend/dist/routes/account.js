@@ -42,5 +42,19 @@ account.post("/transfer", authMiddleware, async (req, res) => {
         session.endSession();
     }
 });
+account.get("/balance", authMiddleware, async (req, res) => {
+    //@ts-ignore
+    const user = req.userId;
+    const userAccount = await Account.findOne({
+        userId: user,
+    });
+    console.log(userAccount);
+    if (userAccount) {
+        const balance = userAccount.accountBalance;
+        res.json({
+            message: `your bakance is ${balance}`
+        });
+    }
+});
 export default account;
 //# sourceMappingURL=account.js.map

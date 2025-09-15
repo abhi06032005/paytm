@@ -44,7 +44,27 @@ user.post("/signup", async (req, res) => {
         accountBalance: Math.random() * 10000
     });
 });
-user.post("/signin", (req, res) => {
+user.post("/signin", async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    try {
+        const user = await User.findOne({
+            username: username,
+            password: password
+        });
+        const token = jwt.sign({
+            userId: user?._id
+        }, JWT_SECRET);
+        res.json({
+            message: " User signin Successfully",
+            token: token
+        });
+    }
+    catch (err) {
+        res.status(403).json({
+            message: " wrong username or password"
+        });
+    }
 });
 const updateBody = zod.object({
     password: string().optional(),

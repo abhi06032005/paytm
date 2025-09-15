@@ -1,4 +1,5 @@
 import express from 'express'
+import type { Response, Request } from 'express';
 import mongoose from 'mongoose'
 import db from '../db.js';
 import authMiddleware from '../middleware.js';
@@ -47,6 +48,28 @@ account.post("/transfer",authMiddleware,  async (req, res) => {
     } finally {
         session.endSession();
     }
+})
+
+account.get("/balance", authMiddleware, async (req : Request, res: Response) => {
+    //@ts-ignore
+        const user=  req.userId
+
+       const userAccount= await Account.findOne({
+            userId : user,
+
+        })
+        console.log(userAccount)
+
+        if(userAccount){
+            
+            const balance =userAccount.accountBalance;
+            res.json({
+            message: `your bakance is ${balance}`
+        })
+        }
+
+
+       
 })
 
 export default account
