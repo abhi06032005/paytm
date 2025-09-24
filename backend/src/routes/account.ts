@@ -13,7 +13,9 @@ account.post("/transfer",authMiddleware,  async (req, res) => {
     try {
         session.startTransaction();
 
-        const { amount, to } = req.body;
+        const amount = req.body.amount;
+        const to = req.body.to;
+        console.log(to, amount);
         //@ts-ignore
         const account = await Account.findOne({ userId: req.userId }).session(session);
 
@@ -64,7 +66,7 @@ account.get("/balance", authMiddleware, async (req : Request, res: Response) => 
             
             const balance =userAccount.accountBalance;
             res.json({
-            message: `your bakance is ${balance}`
+            balance: balance
         })
         }
 

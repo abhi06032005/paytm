@@ -12,10 +12,10 @@ const user = express.Router()
 
 
 const signupSchema =zod.object({
-    username :zod.string(),
+    username :zod.string().email(),
     firstname: zod.string(),
     lastname : zod.string(),
-    email : zod.string().email(),
+    
     password: zod.string().min(6)
 })
 
@@ -47,7 +47,7 @@ user.post("/signup", async (req, res)=>{
     } , JWT_SECRET)
 
     res.json({
-        message: " User created Successfully",
+        message: "CREATED",
         token: token
     })
 

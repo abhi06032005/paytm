@@ -11,7 +11,6 @@ interface Iuser{
     username: string;
     firstname: string;
     lastname: string;
-    email :string;
     password :string;
 
 }
@@ -19,8 +18,7 @@ interface Iuser{
 const UserSchema = new Schema<Iuser>({
     username: {type: String,  required: true, unique:true},
     firstname:{type: String , required: true},
-    lastname:{type: String , required: true},
-    email:{type: String,  required: true, unique:true}, 
+    lastname:{type: String , required: true}, 
     password:{type: String , required: true}
 })
 

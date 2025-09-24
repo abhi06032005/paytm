@@ -8,7 +8,9 @@ account.post("/transfer", authMiddleware, async (req, res) => {
     const session = await mongoose.startSession();
     try {
         session.startTransaction();
-        const { amount, to } = req.body;
+        const amount = req.body.amount;
+        const to = req.body.to;
+        console.log(to, amount);
         //@ts-ignore
         const account = await Account.findOne({ userId: req.userId }).session(session);
         if (!account || account.accountBalance < amount) {
@@ -52,7 +54,7 @@ account.get("/balance", authMiddleware, async (req, res) => {
     if (userAccount) {
         const balance = userAccount.accountBalance;
         res.json({
-            message: `your bakance is ${balance}`
+            balance: balance
         });
     }
 });
