@@ -4,7 +4,7 @@ import{Schema , model} from "mongoose"
 
 
 
-    await mongoose.connect("mongodb+srv://tradeswithabhi:1k0ykp6Ezl0X4DKK@cluster0.67bullx.mongodb.net/")
+    await mongoose.connect("YOUR_MONGO_CONNECTION STRING")
 
 
 interface Iuser{
@@ -39,6 +39,7 @@ const accountSchema = new Schema({
 
 const User= model('User',UserSchema)
 const Account = model('Account' , accountSchema)
+
 
 
 
